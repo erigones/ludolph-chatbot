@@ -4,6 +4,8 @@ Copyright (C) 2016 Erigones, s. r. o.
 
 See the LICENSE file for copying permission.
 """
+from __future__ import absolute_import
+
 import time
 import logging
 
