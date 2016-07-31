@@ -62,11 +62,17 @@ class Chatterbot(LudolphPlugin):
         if not self.xmpp.is_jid_user(self.xmpp.get_jid(msg)):
             return
 
-        txt = msg.get('body', '').strip()
-        start_time = time.time()
-        res = self.chatbot.get_response(txt)
-        logger.info('Found chatbot response in %g seconds: "%s" -> "%s"', (time.time() - start_time), txt, res.text)
-        self.xmpp.msg_reply(msg, res.text)
+        try:
+            txt = msg.get('body', '').strip()
+            start_time = time.time()
+            res = self.chatbot.get_response(txt)
+            reply = res.text
+            logger.info('Found chatbot response in %g seconds: "%s" -> "%s"', (time.time() - start_time), txt, reply)
+        except Exception as exc:
+            reply = 'ERROR: Chatbot malfunction (%s)' % exc
+            logger.exception(exc)
+
+        self.xmpp.msg_reply(msg, reply)
 
     # noinspection PyUnusedLocal
     @command(stream_output=True)
