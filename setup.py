@@ -20,7 +20,7 @@ DESCRIPTION = 'Ludolph: ChatBot plugin'
 with codecs.open('README.rst', 'r', encoding='UTF-8') as readme:
     LONG_DESCRIPTION = ''.join(readme)
 
-DEPS = ['ludolph>=0.9.0']
+DEPS = ['ludolph>=0.9.0', 'ChatterBot>=0.4.10']
 
 CLASSIFIERS = [
     'Environment :: Console',
