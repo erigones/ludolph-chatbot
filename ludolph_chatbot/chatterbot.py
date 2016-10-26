@@ -21,7 +21,7 @@ class Chatterbot(LudolphPlugin):
     Ludolph: ChatterBot plugin.
     """
     __version__ = __version__
-    default_storage_adapter = 'chatterbot.adapters.storage.JsonDatabaseAdapter'
+    default_storage_adapter = 'chatterbot.adapters.storage.JsonFileStorageAdapter'
     default_logic_adapters = ('chatterbot.adapters.logic.MathematicalEvaluation,'
                               'chatterbot.adapters.logic.TimeLogicAdapter,'
                               'chatterbot.adapters.logic.ClosestMatchAdapter')
