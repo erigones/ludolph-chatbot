@@ -84,7 +84,7 @@ class Chatterbot(LudolphPlugin):
         Usage (conversation): chatbot-train "<sentence1>" "<sentence2>" "[sentence3]" ...
         """
         # noinspection PyPackageRequirements
-        from chatterbot.training.trainers import ListTrainer, ChatterBotCorpusTrainer
+        from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 
         if not args:
             raise MissingParameter
