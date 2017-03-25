@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Ludolph: ChatBot
-# Copyright (C) 2016 Erigones, s. r. o.
+# Copyright (C) 2016-2017 Erigones, s. r. o.
 #
 # See the LICENSE file for copying permission.
 
