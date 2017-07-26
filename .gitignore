@@ -8,6 +8,8 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+envs/
+envs3/
 build/
 develop-eggs/
 dist/
@@ -47,6 +49,9 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+
+# Ludolph plugin stuff
+ludolph_chatbot.db
 
 # Django stuff:
 *.log
