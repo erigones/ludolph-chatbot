@@ -21,10 +21,10 @@ class Chatterbot(LudolphPlugin):
     Ludolph: ChatterBot plugin.
     """
     __version__ = __version__
-    default_storage_adapter = 'chatterbot.adapters.storage.JsonFileStorageAdapter'
-    default_logic_adapters = ('chatterbot.adapters.logic.MathematicalEvaluation,'
-                              'chatterbot.adapters.logic.TimeLogicAdapter,'
-                              'chatterbot.adapters.logic.ClosestMatchAdapter')
+    default_storage_adapter = 'chatterbot.storage.JsonFileStorageAdapter'
+    default_logic_adapters = ('chatterbot.logic.mathematical_evaluation.MathematicalEvaluation,'
+                              'chatterbot.logic.time_adapter.TimeLogicAdapter,'
+                              'chatterbot.logic.best_match.BestMatch')
 
     def __init__(self, *args, **kwargs):
         super(Chatterbot, self).__init__(*args, **kwargs)
@@ -41,8 +41,8 @@ class Chatterbot(LudolphPlugin):
         config = self.config
         self.chatbot = self.chatbot_cls(
             self.xmpp.nick,
-            input_adapter='chatterbot.adapters.input.VariableInputTypeAdapter',
-            output_adapter='chatterbot.adapters.output.OutputFormatAdapter',
+            input_adapter='chatterbot.input.variable_input_type_adapter.VariableInputTypeAdapter',
+            output_adapter='chatterbot.output.output_adapter.OutputAdapter',
             storage_adapter=config.pop('storage_adapter', Chatterbot.default_storage_adapter).strip(),
             logic_adapters=config.pop('logic_adapters', Chatterbot.default_logic_adapters).strip().split(','),
             **config
