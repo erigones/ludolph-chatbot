@@ -22,9 +22,11 @@ class Chatterbot(LudolphPlugin):
     """
     __version__ = __version__
     default_storage_adapter = 'chatterbot.storage.JsonFileStorageAdapter'
-    default_logic_adapters = ('chatterbot.logic.mathematical_evaluation.MathematicalEvaluation,'
-                              'chatterbot.logic.time_adapter.TimeLogicAdapter,'
-                              'chatterbot.logic.best_match.BestMatch')
+    default_logic_adapters = ('chatterbot.logic.MathematicalEvaluation,'
+                              'chatterbot.logic.TimeLogicAdapter,'
+                              'chatterbot.logic.BestMatch')
+    default_low_confidence_treshold = 0.65
+    default_low_confidence_response = 'I am sorry, but I do not understand. Check out help for chatbot-train command.'
 
     def __init__(self, *args, **kwargs):
         super(Chatterbot, self).__init__(*args, **kwargs)
@@ -39,12 +41,21 @@ class Chatterbot(LudolphPlugin):
 
     def __post_init__(self):
         config = self.config
+        logic_adapters = config.pop('logic_adapters', self.default_logic_adapters).strip().split(',')
+
+        if 'low_confidence_treshold' in config or 'low_confidence_response' in config:
+            logic_adapters.append({
+                'import_path': 'chatterbot.logic.LowConfidenceAdapter',
+                'threshold': config.pop('low_confidence_treshold', self.default_low_confidence_treshold),
+                'default_response': config.pop('low_confidence_response', self.default_low_confidence_response)
+            })
+
         self.chatbot = self.chatbot_cls(
             self.xmpp.nick,
-            input_adapter='chatterbot.input.variable_input_type_adapter.VariableInputTypeAdapter',
-            output_adapter='chatterbot.output.output_adapter.OutputAdapter',
-            storage_adapter=config.pop('storage_adapter', Chatterbot.default_storage_adapter).strip(),
-            logic_adapters=config.pop('logic_adapters', Chatterbot.default_logic_adapters).strip().split(','),
+            input_adapter='chatterbot.input.VariableInputTypeAdapter',
+            output_adapter='chatterbot.output.OutputAdapter',
+            storage_adapter=config.pop('storage_adapter', self.default_storage_adapter).strip(),
+            logic_adapters=logic_adapters,
             **config
         )
         logger.info('Chatterbot plugin was successfully initialized')

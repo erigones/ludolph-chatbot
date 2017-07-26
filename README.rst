@@ -19,6 +19,8 @@ Installation
 
     [ludolph_chatbot.chatterbot]
     database = /var/lib/ludolph/ludolph_chatbot.db
+    low_confidence_treshold = 0.65
+    low_confidence_response = 'I am sorry, but I do not understand. Check out help for chatbot-train command.'
 
 - Reload Ludolph::
 
