@@ -28,7 +28,7 @@ Installation
 **Dependencies:**
 
 - `Ludolph <https://github.com/erigones/Ludolph>`_ (0.9.0+)
-- `ChatterBot <https://github.com/gunthercox/ChatterBot>`_ (0.4.10+)
+- `ChatterBot <https://github.com/gunthercox/ChatterBot>`_ (0.7.4+)
 
 
 Links
