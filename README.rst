@@ -4,7 +4,8 @@ ludolph-chatbot
 `Ludolph <https://github.com/erigones/Ludolph>`_: ChatBot plugin.
 
 Plugin that allows a machine-learning based conversational dialog engine.
-Although it currently uses the `ChatterBot <https://github.com/gunthercox/ChatterBot>_` engine it can be easily extended to support other dialog engines.
+Although it currently uses the `ChatterBot <https://github.com/gunthercox/ChatterBot>`_ engine it can be easily extended to support other dialog engines.
+
 **Plugin is not production ready yet.**
 
 Installation
