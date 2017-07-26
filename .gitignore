@@ -51,6 +51,7 @@ coverage.xml
 *.pot
 
 # Ludolph plugin stuff
+ludolph_chatbot.sqlite3.db
 ludolph_chatbot.db
 
 # Django stuff:
