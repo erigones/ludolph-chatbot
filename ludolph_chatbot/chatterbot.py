@@ -42,19 +42,22 @@ class Chatterbot(LudolphPlugin):
     def __post_init__(self):
         config = self.config
         logic_adapters = config.pop('logic_adapters', self.default_logic_adapters).strip().split(',')
+        storage_adapters = config.pop('storage_adapter', self.default_storage_adapter).strip()
 
-        if 'low_confidence_treshold' in config or 'low_confidence_response' in config:
+        if 'low_confidence_threshold' in config or 'low_confidence_response' in config:
             logic_adapters.append({
                 'import_path': 'chatterbot.logic.LowConfidenceAdapter',
-                'threshold': config.pop('low_confidence_treshold', self.default_low_confidence_treshold),
+                'threshold': config.pop('low_confidence_threshold', self.default_low_confidence_treshold),
                 'default_response': config.pop('low_confidence_response', self.default_low_confidence_response)
             })
+        logger.debug('Chatterbot loaded storage adapters: %s', storage_adapters)
+        logger.debug('Chatterbot loaded logic adapters: %s', logic_adapters)
 
         self.chatbot = self.chatbot_cls(
             self.xmpp.nick,
             input_adapter='chatterbot.input.VariableInputTypeAdapter',
             output_adapter='chatterbot.output.OutputAdapter',
-            storage_adapter=config.pop('storage_adapter', self.default_storage_adapter).strip(),
+            storage_adapter=storage_adapters,
             logic_adapters=logic_adapters,
             **config
         )
@@ -78,7 +81,8 @@ class Chatterbot(LudolphPlugin):
             start_time = time.time()
             res = self.chatbot.get_response(txt)
             reply = res.text
-            logger.info('Found chatbot response in %g seconds: "%s" -> "%s"', (time.time() - start_time), txt, reply)
+            logger.info('Found chatbot response (with confidence %s) in %g seconds: "%s" -> "%s"',
+                        res.confidence, (time.time() - start_time), txt, reply)
         except Exception as exc:
             reply = 'ERROR: Chatbot malfunction (%s)' % exc
             logger.exception(exc)
