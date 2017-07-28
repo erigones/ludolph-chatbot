@@ -32,7 +32,7 @@ Optional config options and its default values. This can be defined in config to
     low_confidence_threshold = 0.65
     low_confidence_response = I am sorry, but I do not understand. Check out help for chatbot-train command.
 
-To enable LowConfidenceAdapter just define `low_confidence_threshold` or `low_confidence_response` in your `Ludolph <https://github.com/erigones/Ludolph>`_ configuration file.
+To enable LowConfidenceAdapter just define ``low_confidence_threshold`` or ``low_confidence_response`` in your `Ludolph <https://github.com/erigones/Ludolph>`_ configuration file.
 
 **Dependencies:**
 
