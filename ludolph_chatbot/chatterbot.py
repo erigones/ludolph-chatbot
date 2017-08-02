@@ -25,7 +25,7 @@ class Chatterbot(LudolphPlugin):
     default_logic_adapters = ('chatterbot.logic.MathematicalEvaluation,'
                               'chatterbot.logic.TimeLogicAdapter,'
                               'chatterbot.logic.BestMatch')
-    default_low_confidence_treshold = 0.65
+    default_low_confidence_threshold = 0.65
     default_low_confidence_response = 'I am sorry, but I do not understand. Check out help for chatbot-train command.'
 
     def __init__(self, *args, **kwargs):
@@ -47,7 +47,7 @@ class Chatterbot(LudolphPlugin):
         if 'low_confidence_threshold' in config or 'low_confidence_response' in config:
             logic_adapters.append({
                 'import_path': 'chatterbot.logic.LowConfidenceAdapter',
-                'threshold': config.pop('low_confidence_threshold', self.default_low_confidence_treshold),
+                'threshold': config.pop('low_confidence_threshold', self.default_low_confidence_threshold),
                 'default_response': config.pop('low_confidence_response', self.default_low_confidence_response)
             })
         logger.debug('Chatterbot loaded storage adapters: %s', storage_adapters)
