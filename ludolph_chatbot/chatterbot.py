@@ -90,7 +90,7 @@ class Chatterbot(LudolphPlugin):
         self.xmpp.msg_reply(msg, reply)
 
     # noinspection PyUnusedLocal
-    @command(stream_output=True)
+    @command(stream_output=True, admin_required=True)
     def chatbot_train(self, msg, *args):
         """
         Train the ChatBot by loading a corpus or reading a conversation.
