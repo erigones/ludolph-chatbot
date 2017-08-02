@@ -93,7 +93,7 @@ class Chatterbot(LudolphPlugin):
     @command(stream_output=True, admin_required=True)
     def chatbot_train(self, msg, *args):
         """
-        Train the ChatBot by loading a corpus or reading a conversation.
+        Train the ChatBot by loading a corpus or reading a conversation (admin only).
 
         Usage (corpus): chatbot-train <python.path.to.a.corpus>
         Usage (conversation): chatbot-train "<sentence1>" "<sentence2>" "[sentence3]" ...
