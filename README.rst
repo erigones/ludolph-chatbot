@@ -15,7 +15,7 @@ Installation
 
     pip install https://github.com/erigones/ludolph-chatbot/tarball/master
 
-- Add new plugin section into Ludolph configuration file::
+- Add new plugin section into Ludolph configuration file (see configuration section for more options)::
 
     [ludolph_chatbot.chatterbot]
     database = /var/lib/ludolph/ludolph_chatbot.sqlite3
@@ -25,19 +25,24 @@ Installation
     service ludolph reload
 
 
-Optional config options and its default values. This can be defined in config to change ChatBot plugin behaviour::
-
-    logic_adapters = chatterbot.logic.MathematicalEvaluation,chatterbot.logic.TimeLogicAdapter,chatterbot.logic.BestMatch
-    storage_adapter = chatterbot.storage.SQLStorageAdapter
-    low_confidence_threshold = 0.65
-    low_confidence_response = I am sorry, but I do not understand. Check out help for chatbot-train command.
-
-To enable LowConfidenceAdapter just define ``low_confidence_threshold`` or ``low_confidence_response`` in your `Ludolph <https://github.com/erigones/Ludolph>`_ configuration file.
-
 **Dependencies:**
 
 - `Ludolph <https://github.com/erigones/Ludolph>`_ (0.9.0+)
 - `ChatterBot <https://github.com/gunthercox/ChatterBot>`_ (0.7.4+)
+
+
+Configuration
+-------------
+
+Optional config options and its default values.
+These options can be defined in the config file to change ChatBot plugin behaviour.
+
+- ``logic_adapters = chatterbot.logic.MathematicalEvaluation,chatterbot.logic.TimeLogicAdapter,chatterbot.logic.BestMatch``
+- ``storage_adapter = chatterbot.storage.SQLStorageAdapter``
+- ``low_confidence_threshold = 0.65``
+- ``low_confidence_response = I am sorry, but I do not understand. Check out help for chatbot-train command.``
+
+To enable the LowConfidenceAdapter just define ``low_confidence_threshold`` or ``low_confidence_response`` in your `Ludolph <https://github.com/erigones/Ludolph>`_ configuration file.
 
 
 Links
