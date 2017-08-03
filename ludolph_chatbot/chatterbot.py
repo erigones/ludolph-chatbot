@@ -34,8 +34,10 @@ class Chatterbot(LudolphPlugin):
         # chatbot modules/services. An ImportError during runtime will disable this plugin.
         # noinspection PyPackageRequirements
         from chatterbot import ChatBot
+        from chatterbot.conversation.session import Session
 
         self.chatbot_cls = ChatBot
+        self.session_cls = Session
         self.chatbot = None
         self._training_lock = False
 
@@ -70,6 +72,18 @@ class Chatterbot(LudolphPlugin):
         self.xmpp.deregister_event_handler('bot_command_not_found', self._command_not_found)
         self.chatbot = None
 
+    def _get_chat_session(self, msg):
+        """Return a chatterbot session object for a user (JID)"""
+        jid = self.xmpp.get_jid(msg)
+        chat_session = self.chatbot.conversation_sessions.get(jid, None)
+
+        if not chat_session:
+            chat_session = self.session_cls()
+            chat_session.id_string = jid
+            self.chatbot.conversation_sessions.sessions[jid] = chat_session
+
+        return chat_session
+
     # noinspection PyUnusedLocal
     def _command_not_found(self, msg, cmd_name):
         """Message handler called in case the command does not exist"""
@@ -77,9 +91,10 @@ class Chatterbot(LudolphPlugin):
             return
 
         try:
+            chat_session = self._get_chat_session(msg)
             txt = msg.get('body', '').strip()
             start_time = time.time()
-            res = self.chatbot.get_response(txt)
+            res = self.chatbot.get_response(txt, session_id=chat_session.id_string)
             reply = res.text
             logger.info('Found chatbot response (with confidence %s) in %g seconds: "%s" -> "%s"',
                         res.confidence, (time.time() - start_time), txt, reply)
