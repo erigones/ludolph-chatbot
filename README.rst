@@ -37,10 +37,15 @@ Configuration
 Optional config options and its default values.
 These options can be defined in the config file to change ChatBot plugin behaviour.
 
+logic_adapters
+~~~~~~~~~~~~~~
+
 - ``logic_adapters = chatterbot.logic.MathematicalEvaluation,chatterbot.logic.TimeLogicAdapter,chatterbot.logic.BestMatch``
 - ``storage_adapter = chatterbot.storage.SQLStorageAdapter``
 - ``low_confidence_threshold = 0.65``
 - ``low_confidence_response = I am sorry, but I do not understand. Check out help for chatbot-train command.``
+- ``muc = false``
+- ``muc_confidence_threshold = 0.95``
 
 To enable the LowConfidenceAdapter just define ``low_confidence_threshold`` or ``low_confidence_response`` in your `Ludolph <https://github.com/erigones/Ludolph>`_ configuration file.
 
